@@ -5,7 +5,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 {
     bool isAlive;
     public float speed;
-    Vector2 moveX;
+    Vector2 moveXY;
     
 
     [SerializeField] float desplSpeedx;

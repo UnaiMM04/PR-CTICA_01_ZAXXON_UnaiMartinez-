@@ -489,6 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   speed: 5
   rotationSpeed: 2
+  smoothRotation: 0.5
   desplSpeedx: 2
   desplSpeedy: 2
 --- !u!4 &1820075144

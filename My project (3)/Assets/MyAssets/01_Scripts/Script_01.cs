@@ -5,6 +5,7 @@ public class PlayerManager : MonoBehaviour
 {
     bool isAlive;
     public float speed;
+    public float enemySpeed;
     Vector2 moveXY;
 
     float rotation;
@@ -20,8 +21,14 @@ public class PlayerManager : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     Vector3 currentRot;
 
+    //LIMITES DE MOVIMIENTO
+    [SerializeField] float minX = -20f;
+    [SerializeField] float maxX = 20f;
+    [SerializeField] float minY = -20f;
+    [SerializeField] float maxY = 20f;
 
-    
+
+
 
     ImputActions imputActions;
     
@@ -38,7 +45,8 @@ public class PlayerManager : MonoBehaviour
         imputActions.Player.Fire.started += _ => Fire();
 
 
-        speed = 100f;
+        speed = 50f;
+        enemySpeed = 100f;
 
 
     }
@@ -60,9 +68,22 @@ public class PlayerManager : MonoBehaviour
 
     void MovePlayer()
     {
-        transform.Translate(Vector3.right * moveXY.x * speed * Time.deltaTime, Space.World);
-        transform.Translate(Vector3.up * moveXY.y * speed * Time.deltaTime, Space.World);
-        
+        //transform.Translate(Vector3.right * moveXY.x * speed * Time.deltaTime, Space.World);
+        //transform.Translate(Vector3.up * moveXY.y * speed * Time.deltaTime, Space.World);
+
+        // 1. Calculamos el desplazamiento deseado este frame
+        Vector3 displacement = new Vector3(moveXY.x, moveXY.y, 0f) * speed * Time.deltaTime;
+
+        // 2. Aplicamos la nueva posición
+        Vector3 newPosition = transform.position + displacement;
+
+        // 3. Restringimos (Clamp) la posición dentro de los rangos min/max
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+        newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
+
+        // 4. Asignamos la posición final delimitada
+        transform.position = newPosition;
+
     }
     void RotatePlayer() 
     {

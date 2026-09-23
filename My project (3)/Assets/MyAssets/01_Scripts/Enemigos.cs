@@ -4,18 +4,40 @@ public class Enemigos : MonoBehaviour
 {
     float speed;
     [SerializeField] PlayerManager playerManager;
+
+
+
+
     void Start()
     {
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerManager = player.GetComponent<PlayerManager>();
+        if(player != null)
+        {
+
+            playerManager = player.GetComponent<PlayerManager>();
+        }
+        else         {
+            Debug.LogError("PlayerManager not found on the player object.");
+        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.back * - speed * Time.deltaTime);
-        speed = playerManager.speed;
+        speed = playerManager.enemySpeed;
+        transform.Translate(Vector3.back * speed * Time.deltaTime);
+
+        DestuccionEnemigo();
+    }
+
+    void DestuccionEnemigo()
+    {
+        if (transform.position.z < playerManager.transform.position.z)
+        {
+            Destroy(gameObject);
+        }
     }
 }
+    

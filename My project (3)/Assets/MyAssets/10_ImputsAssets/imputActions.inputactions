@@ -16,22 +16,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Rotate",
-                    "type": "Value",
-                    "id": "01241864-a5f5-47e4-a953-940a86e9c982",
-                    "expectedControlType": "Axis",
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "a0b0bf1e-53e9-441c-ab32-fd951f4ba7c5",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "New action",
-                    "type": "Value",
-                    "id": "0afbafc0-cf37-4c13-a44c-9fa747a9b8ab",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -103,23 +94,23 @@
                 },
                 {
                     "name": "",
-                    "id": "aa1a931e-eea0-42a9-9c86-761282d321a2",
-                    "path": "<Gamepad>/leftStick/x",
+                    "id": "99dde725-597c-4f40-837a-d0e1717c1b77",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotate",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "0ad2ec37-2dab-4ada-9e79-224f76c53233",
+                    "id": "95346e66-08ce-4265-9d55-c5e129683ec8",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

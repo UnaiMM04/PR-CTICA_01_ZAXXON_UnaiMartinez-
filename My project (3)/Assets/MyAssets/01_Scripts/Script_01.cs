@@ -1,25 +1,25 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     bool isAlive;
     public float speed;
     Vector2 moveXY;
 
     float rotation;
-    float maxRotation = - 45f;
     [SerializeField] float rotationSpeed = 2;
+
+    float maxRotationZ = 35f;
+    float maxRotationX = 15f;
+    
 
 
     //ROTACION SUAVIZADA
-    Vector3 origin;
-    Vector3 destiny;
-    Vector3 velocity;
-    [SerializeField] float smoothRotation = 0.5f;
+    [SerializeField] float smoothRotation = 0.05f;
+    private Vector3 velocity = Vector3.zero;
+    Vector3 currentRot;
 
-    [SerializeField] float desplSpeedx;
-    [SerializeField] float desplSpeedy;
 
     
 
@@ -29,17 +29,25 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private void Awake()
     {
         imputActions = new ImputActions();
-        imputActions.Player.Move.performed += ctx => desplSpeedx = -speed * ctx.ReadValue<Vector2>().x;
-        imputActions.Player.Move.performed += ctx => desplSpeedy = speed * ctx.ReadValue<Vector2>().y;
-        imputActions.Player.Move.canceled += _ => desplSpeedx = - speed * 0;
-        imputActions.Player.Move.canceled += _ => desplSpeedy = speed * 0;
 
-        imputActions.Player.Rotate.performed += ctx => rotation = ctx.ReadValue<float>();
-        imputActions.Player.Rotate.canceled += _ => rotation = 0;
+        //MOVIMIENTO
+        imputActions.Player.Move.performed += ctx => moveXY = ctx.ReadValue<Vector2>();
+        imputActions.Player.Move.canceled += _ => moveXY = Vector2.zero;
 
+        //DISPARO
+        imputActions.Player.Fire.started += _ => Fire();
+
+
+        speed = 100f;
 
 
     }
+
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
         {
@@ -52,24 +60,30 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     void MovePlayer()
     {
-        transform.Translate(Vector3.right * desplSpeedx * Time.deltaTime, Space.World);
-        transform.Translate(Vector3.up * desplSpeedy * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.right * moveXY.x * speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector3.up * moveXY.y * speed * Time.deltaTime, Space.World);
         
     }
     void RotatePlayer() 
     {
+        
+        //ROTACION LOCA
         //transform.Rotate(Vector3.forward * rotation * - rotationSpeed * Time.deltaTime * -360, Space.World);
-        //transform.eulerAngles = Vector3.forward * maxRotation * moveXY;
 
-        //origin = transform.rotation.eulerAngles;
-        //destiny = Vector3.forward * moveXY * - maxRotation;
-        //transform.eulerAngles = Vector3.SmoothDamp(origin, destiny, ref velocity, smoothRotation);
+        //transform.eulerAngles = Vector3.forward * -maxRotationZ * moveXY.x;
 
-        Vector3 vectorRotZ = Vector3.forward * maxRotationZ * moveXY.x;
-        Vector3 vectorRotX = Vector3.right * maxRotationX * moveXY.y;
+
+        //ROTACION SUAVIZADA
+        Vector3 vectorRotZ = Vector3.forward * -maxRotationZ * moveXY.x;
+        Vector3 vectorRotX = Vector3.right * -maxRotationX * moveXY.y;
         Vector3 vectorRot = vectorRotZ + vectorRotX;
         currentRot = Vector3.SmoothDamp(currentRot, vectorRot, ref velocity, smoothRotation);
         transform.eulerAngles = currentRot;
+    }
+
+    void Fire()
+    {
+        print("POOM");
     }
 
     private void OnEnable()

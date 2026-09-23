@@ -247,7 +247,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229845484247284668, guid: 886f268d912d6ad42b0f65966da95d45, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.29
+      value: -4.8
       objectReference: {fileID: 0}
     - target: {fileID: 8229845484247284668, guid: 886f268d912d6ad42b0f65966da95d45, type: 3}
       propertyPath: m_LocalPosition.y
@@ -255,7 +255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8229845484247284668, guid: 886f268d912d6ad42b0f65966da95d45, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.62
+      value: 21.12
       objectReference: {fileID: 0}
     - target: {fileID: 8229845484247284668, guid: 886f268d912d6ad42b0f65966da95d45, type: 3}
       propertyPath: m_LocalRotation.w
@@ -756,6 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Camara
   playerTransform: {fileID: 1820075144}
+  playerRotate: {fileID: 1820075144}
   distance: -7
   verticalOffset: 2
 --- !u!114 &2056496901

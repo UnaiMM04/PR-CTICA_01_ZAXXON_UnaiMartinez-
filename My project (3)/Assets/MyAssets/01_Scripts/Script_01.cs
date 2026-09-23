@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     float rotation;
     [SerializeField] float rotationSpeed = 2;
 
-    float maxRotationZ = 35f;
+    float maxRotationZ = 15f;
     float maxRotationX = 15f;
     
 

@@ -26,12 +26,14 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
 
-            randomX = Random.Range(-10f, 10f);
-            randomY = Random.Range(-10f, 10f);
+            randomX = Random.Range(-20f, 20f);
+            randomY = Random.Range(-20f, 20f);
             Vector3 despl = new Vector3(randomX, randomY, 0);
             Vector3 instPost = transform.position + despl;
             Instantiate( Enemigoo, instPost, Quaternion.identity);
             yield return new WaitForSeconds(interval);
         }
     }
+
+    
 }

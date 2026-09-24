@@ -192,7 +192,7 @@ public partial class @ImputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""95346e66-08ce-4265-9d55-c5e129683ec8"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

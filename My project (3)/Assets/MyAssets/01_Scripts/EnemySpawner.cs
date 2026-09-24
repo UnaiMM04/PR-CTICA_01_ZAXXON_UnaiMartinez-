@@ -37,8 +37,8 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < enemyCount; i++)
             {
 
-                randomX = Random.Range(-20f, 20f);
-                randomY = Random.Range(-20f, 20f);
+                randomX = Random.Range(-30f, 30f);
+                randomY = Random.Range(-30f, 30f);
                 Vector3 despl = new Vector3(randomX, randomY, 0);
                 Vector3 instPost = transform.position + despl;
               //Instantiate(Enemigoo, instPost, Quaternion.identity);

@@ -160,6 +160,10 @@ MonoBehaviour:
   interval: 0.5
   randomX: 0
   randomY: 0
+  minEnemiesPerWave: 1
+  maxEnemiesPerWave: 5
+  minScale: 0.5
+  maxScale: 4
 --- !u!64 &613234660
 MeshCollider:
   m_ObjectHideFlags: 0

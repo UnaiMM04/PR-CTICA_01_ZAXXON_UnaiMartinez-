@@ -45,8 +45,8 @@ public class PlayerManager : MonoBehaviour
         imputActions.Player.Fire.started += _ => Fire();
 
 
-        speed = 50f;
-        enemySpeed = 100f;
+        speed = 100f;
+        enemySpeed = 300f;
 
 
     }

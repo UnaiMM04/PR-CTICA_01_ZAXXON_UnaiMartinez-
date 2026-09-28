@@ -8,23 +8,27 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float interval = 0.5f;
     [SerializeField] float randomX;
     [SerializeField] float randomY;
+    [SerializeField] float limitX = 30f;
+    [SerializeField] float limitY = 30f;
 
-
-    [SerializeField] int minEnemiesPerWave = 1;  // Cantidad mínima de enemigos por oleada
-    [SerializeField] int maxEnemiesPerWave = 5;  // Cantidad máxima de enemigos por oleada
+    [SerializeField] int minEnemiesPerWave = 0;  // Cantidad mínima de enemigos por oleada
+    [SerializeField] int maxEnemiesPerWave = 6;  // Cantidad máxima de enemigos por oleada
     [SerializeField] float minScale = 0.5f;       // Tamaño mínimo (ej. 50%)
     [SerializeField] float maxScale = 2.0f;       // Tamaño máximo (ej. 200%)
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    //Enemigos intermedios
+    [SerializeField] private float fristEnemyDistance;
+    [SerializeField] float distanceEntreEnemigos;
     void Start()
     {
-      StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemy());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     IEnumerator SpawnEnemy()
@@ -37,26 +41,47 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < enemyCount; i++)
             {
 
-                randomX = Random.Range(-30f, 30f);
-                randomY = Random.Range(-30f, 30f);
-                Vector3 despl = new Vector3(randomX, randomY, 0);
-                Vector3 instPost = transform.position + despl;
-              //Instantiate(Enemigoo, instPost, Quaternion.identity);
-
-                // Instanciar el enemigo
-                GameObject newEnemy = Instantiate(Enemigoo, instPost, Quaternion.identity);
-
-                // 3. Aplicar tamaño (escala) aleatorio uniforme
-                float randomScale = Random.Range(minScale, maxScale);
-                newEnemy.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+                SacarNave(0);
+                EnemigoIntermedio();
             }
 
             yield return new WaitForSeconds(interval);
 
-           
-            //yield return new WaitForSeconds(interval);
+
+
         }
     }
 
+
     
+    void SacarNave(float distZ)
+    {
+        // Lógica para sacar la nave
+        randomX = Random.Range(-limitX, limitY);
+        randomY = Random.Range(-limitY, limitY);
+        Vector3 despl = new Vector3(randomX, randomY, -distZ);
+        Vector3 instPost = transform.position + despl;
+        //Instantiate(Enemigoo, instPost, Quaternion.identity);
+
+        // Instanciar el enemigo
+        GameObject newEnemy = Instantiate(Enemigoo, instPost, Quaternion.identity);
+
+        // Aplicar tamaño (escala) aleatorio uniforme
+        float randomScale = Random.Range(minScale, maxScale);
+        newEnemy.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+    }
+
+    void EnemigoIntermedio()
+    {
+        float fristEnemy = transform.position.z - fristEnemyDistance;
+        float n = fristEnemy / distanceEntreEnemigos;
+        int ciclos = Mathf.FloorToInt(n);
+        SacarNave( -fristEnemy);
+        for (int i = 0; i < ciclos; i++)
+        {
+            SacarNave(-fristEnemy);
+        }
+    }
+
+
 }

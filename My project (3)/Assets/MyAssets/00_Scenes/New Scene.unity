@@ -622,6 +622,9 @@ MonoBehaviour:
   maxX: 300
   minY: -300
   maxY: 300
+  dashSpeed: 350
+  dashDuration: 0.15
+  dashCooldown: 1
 --- !u!1 &2056496899
 GameObject:
   m_ObjectHideFlags: 0

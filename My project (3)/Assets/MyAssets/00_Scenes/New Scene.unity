@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   Enemigoo: {fileID: 473200231527756607, guid: 886f268d912d6ad42b0f65966da95d45, type: 3}
+  Enemigo02: {fileID: 4687858124405944303, guid: e6d7799e392eec04b864131cfd23d9eb, type: 3}
   interval: 0.5
   randomX: 0
   randomY: 0
@@ -163,6 +164,7 @@ MonoBehaviour:
   maxEnemiesPerWave: 20
   minScale: 1
   maxScale: 20
+  enemy02SpawnChance: 20
   fristEnemyDistance: 200
   distanceEntreEnemigos: 40
   playerManager: {fileID: 1820075145}
@@ -624,7 +626,6 @@ MonoBehaviour:
   minY: -300
   maxY: 300
   dashSpeed: 350
-  dashDuration: 0.15
   dashCooldown: 1
 --- !u!1 &2056496899
 GameObject:
@@ -659,7 +660,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Camara
   playerTransform: {fileID: 1820075144}
-  playerRotate: {fileID: 1820075144}
   distance: -7
   verticalOffset: 2
 --- !u!114 &2056496901

@@ -17,6 +17,9 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float minScale = 0.5f;       // Tamaño mínimo (ej. 50%)
     [SerializeField] float maxScale = 2.0f;       // Tamaño máximo (ej. 200%)
 
+    [Range(0f, 100f)]
+    [SerializeField] private float enemy02SpawnChance = 5f; // Porcentaje de probabilidad (ej. 5%)
+
 
     //Enemigos intermedios
     [SerializeField] private float fristEnemyDistance;
@@ -47,8 +50,17 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < enemyCount; i++)
             {
 
-                SacarEnemigo02(0);
-                SacarEnemigo01(0);
+                // Tirada aleatoria entre 0 y 100
+                float roll = Random.Range(0f, 100f);
+
+                if (roll < enemy02SpawnChance)
+                {
+                    SacarEnemigo02(0); // Sale Enemigo 02 si entra en el porcentaje
+                }
+                else
+                {
+                    SacarEnemigo01(0); // De lo contrario, sale Enemigo 01
+                }
             }
 
             interval = distanceEntreEnemigos / playerManager.speed;
@@ -91,11 +103,6 @@ public class EnemySpawner : MonoBehaviour
 
         // Instanciar el enemigo
         GameObject newEnemy02 = Instantiate(Enemigo02, instPost, Quaternion.identity);
-
-
-        // Aplicar tamaño (escala) aleatorio uniforme
-        float randomScale = Random.Range(minScale, maxScale);
-        newEnemy02.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
     }
     void EnemigoIntermedio()
     {

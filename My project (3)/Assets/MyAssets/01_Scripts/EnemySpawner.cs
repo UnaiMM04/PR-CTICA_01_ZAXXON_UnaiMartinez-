@@ -5,7 +5,8 @@ public class EnemySpawner : MonoBehaviour
 {
 
     [SerializeField] GameObject Enemigoo;
-    [SerializeField] float interval = 0.5f;
+    [SerializeField] GameObject Enemigo02;
+    [SerializeField] float interval;
     [SerializeField] float randomX;
     [SerializeField] float randomY;
     [SerializeField] float limitX = 30f;
@@ -46,8 +47,11 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < enemyCount; i++)
             {
 
-                SacarNave(0);
+                SacarEnemigo02(0);
+                SacarEnemigo01(0);
             }
+
+            interval = distanceEntreEnemigos / playerManager.speed;
 
             yield return new WaitForSeconds(interval);
 
@@ -58,7 +62,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     
-    void SacarNave(float distZ)
+    void SacarEnemigo01(float distZ)
     {
         // Lógica para sacar la nave
         randomX = Random.Range(-limitX, limitY);
@@ -69,12 +73,30 @@ public class EnemySpawner : MonoBehaviour
 
         // Instanciar el enemigo
         GameObject newEnemy = Instantiate(Enemigoo, instPost, Quaternion.identity);
+        
 
         // Aplicar tamaño (escala) aleatorio uniforme
         float randomScale = Random.Range(minScale, maxScale);
         newEnemy.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
     }
 
+    void SacarEnemigo02(float distZ)
+    {
+        // Lógica para sacar la nave
+        randomX = Random.Range(-limitX, limitY);
+        randomY = Random.Range(-limitY, limitY);
+        Vector3 despl = new Vector3(randomX, randomY, distZ);
+        Vector3 instPost = transform.position - despl;
+        //Instantiate(Enemigoo, instPost, Quaternion.identity);
+
+        // Instanciar el enemigo
+        GameObject newEnemy02 = Instantiate(Enemigo02, instPost, Quaternion.identity);
+
+
+        // Aplicar tamaño (escala) aleatorio uniforme
+        float randomScale = Random.Range(minScale, maxScale);
+        newEnemy02.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+    }
     void EnemigoIntermedio()
     {
         float fristEnemy = transform.position.z - fristEnemyDistance;
@@ -84,8 +106,8 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < ciclos; i++)
         {
-            SacarNave(fristEnemy);
-            print("Sacar nave en: " + fristEnemy);
+            SacarEnemigo02(fristEnemy);
+            
             fristEnemy -= distanceEntreEnemigos;
         }
 

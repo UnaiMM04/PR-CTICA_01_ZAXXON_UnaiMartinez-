@@ -160,11 +160,12 @@ MonoBehaviour:
   limitX: 300
   limitY: 300
   minEnemiesPerWave: 0
-  maxEnemiesPerWave: 71
+  maxEnemiesPerWave: 20
   minScale: 1
   maxScale: 20
-  fristEnemyDistance: 0
-  distanceEntreEnemigos: 0
+  fristEnemyDistance: 200
+  distanceEntreEnemigos: 40
+  playerManager: {fileID: 1820075145}
 --- !u!4 &613234663
 Transform:
   m_ObjectHideFlags: 0
@@ -174,7 +175,7 @@ Transform:
   m_GameObject: {fileID: 613234658}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 1200}
+  m_LocalPosition: {x: 0, y: 0, z: 4000}
   m_LocalScale: {x: 62.779682, y: 56.63679, z: 55.024563}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -745,7 +746,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 4000
   field of view: 60
   orthographic: 0
   orthographic size: 5

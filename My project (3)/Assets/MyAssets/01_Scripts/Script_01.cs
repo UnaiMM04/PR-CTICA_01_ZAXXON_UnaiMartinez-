@@ -30,8 +30,9 @@ public class PlayerManager : MonoBehaviour
 
     //DASH DEL JUGADOR
     [SerializeField] float dashSpeed = 250f;      // Velocidad impulsada durante el dash
-    [SerializeField] float dashDuration = 0.15f;  // Duración del dash en segundos
+   // [SerializeField] float dashDuration = 0.15f;  // Duración del dash en segundos
     [SerializeField] float dashCooldown = 1f;     // Tiempo de espera entre dashes
+    private bool isDashPressed = false;    // Detecta si el botón sigue mantenido
     private bool isDashing = false;
     private bool canDash = true;
     private Vector2 lastMoveDirection = Vector2.up;
@@ -53,10 +54,11 @@ public class PlayerManager : MonoBehaviour
         imputActions.Player.Fire.started += _ => Fire();
 
         // INTENTA DASH
-        imputActions.Player.Dash.started += _ => TryDash();
+        imputActions.Player.Dash.performed += _ => OnDashStart();
+        imputActions.Player.Dash.canceled += _ => OnDashEnd();
 
         speed = 100f;
-        enemySpeed = 300f;
+        //enemySpeed = 300f;
 
 
     }
@@ -134,31 +136,44 @@ public class PlayerManager : MonoBehaviour
     }
 
 
+    private void OnDashStart()
+    {
+        isDashPressed = true;
+        if (canDash && !isDashing)
+        {
+            StartCoroutine(PerformDash());
+        }
+    }
+
+    private void OnDashEnd()
+    {
+        isDashPressed = false;
+    }
+
     IEnumerator PerformDash()
     {
         canDash = false;
         isDashing = true;
 
-        Vector3 dashDir = (moveXY != Vector2.zero)
-            ? new Vector3(moveXY.x, moveXY.y, 0f).normalized
-            : new Vector3(lastMoveDirection.x, lastMoveDirection.y, 0f);
-
-        float timer = 0f;
-        while (timer < dashDuration)
+        // Bucle activo mientras mantengas presionado el botón
+        while (isDashPressed)
         {
+            Vector3 dashDir = (moveXY != Vector2.zero)
+                ? new Vector3(moveXY.x, moveXY.y, 0f).normalized
+                : new Vector3(lastMoveDirection.x, lastMoveDirection.y, 0f);
+
             Vector3 newPosition = transform.position + dashDir * dashSpeed * Time.deltaTime;
             newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
             newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
 
             transform.position = newPosition;
 
-            timer += Time.deltaTime;
             yield return null;
         }
 
         isDashing = false;
 
-        yield return new WaitForSeconds(dashCooldown);
+        //yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
 

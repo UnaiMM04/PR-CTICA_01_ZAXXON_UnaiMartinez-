@@ -20,9 +20,14 @@ public class EnemySpawner : MonoBehaviour
     //Enemigos intermedios
     [SerializeField] private float fristEnemyDistance;
     [SerializeField] float distanceEntreEnemigos;
+
+    [SerializeField] PlayerManager playerManager;
+
+
     void Start()
     {
         StartCoroutine(SpawnEnemy());
+        EnemigoIntermedio();
     }
 
     // Update is called once per frame
@@ -42,7 +47,6 @@ public class EnemySpawner : MonoBehaviour
             {
 
                 SacarNave(0);
-                EnemigoIntermedio();
             }
 
             yield return new WaitForSeconds(interval);
@@ -59,8 +63,8 @@ public class EnemySpawner : MonoBehaviour
         // Lógica para sacar la nave
         randomX = Random.Range(-limitX, limitY);
         randomY = Random.Range(-limitY, limitY);
-        Vector3 despl = new Vector3(randomX, randomY, -distZ);
-        Vector3 instPost = transform.position + despl;
+        Vector3 despl = new Vector3(randomX, randomY, distZ);
+        Vector3 instPost = transform.position - despl;
         //Instantiate(Enemigoo, instPost, Quaternion.identity);
 
         // Instanciar el enemigo
@@ -76,11 +80,16 @@ public class EnemySpawner : MonoBehaviour
         float fristEnemy = transform.position.z - fristEnemyDistance;
         float n = fristEnemy / distanceEntreEnemigos;
         int ciclos = Mathf.FloorToInt(n);
-        SacarNave( -fristEnemy);
+        print("Ciclos: " + ciclos);
+
         for (int i = 0; i < ciclos; i++)
         {
-            SacarNave(-fristEnemy);
+            SacarNave(fristEnemy);
+            print("Sacar nave en: " + fristEnemy);
+            fristEnemy -= distanceEntreEnemigos;
         }
+
+        
     }
 
 

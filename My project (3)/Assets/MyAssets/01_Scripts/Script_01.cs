@@ -5,15 +5,15 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     bool isAlive;
-    public float speed;
-    public float enemySpeed;
+    [SerializeField] public float speed;
+    [SerializeField] public float enemySpeed;
     Vector2 moveXY;
 
     float rotation;
     [SerializeField] float rotationSpeed = 2;
 
-    float maxRotationZ = 15f;
-    float maxRotationX = 15f;
+    [SerializeField] float maxRotationZ = 15f;
+    [SerializeField] float maxRotationX = 15f;
     
 
 
@@ -57,8 +57,8 @@ public class PlayerManager : MonoBehaviour
         imputActions.Player.Dash.performed += _ => OnDashStart();
         imputActions.Player.Dash.canceled += _ => OnDashEnd();
 
-        speed = 100f;
-        //enemySpeed = 300f;
+        speed = 200f;
+        enemySpeed = 600f;
 
 
     }
@@ -83,8 +83,7 @@ public class PlayerManager : MonoBehaviour
                 lastMoveDirection = moveXY.normalized;
             }
 
-            MovePlayer();
-            RotatePlayer();
+            
 
 
 

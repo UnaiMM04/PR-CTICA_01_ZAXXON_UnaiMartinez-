@@ -26,7 +26,7 @@ public class Enemigos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed = playerManager.speed;
+        speed = playerManager.enemySpeed;
         transform.Translate(Vector3.back * speed * Time.deltaTime);
 
         DestuccionEnemigo();

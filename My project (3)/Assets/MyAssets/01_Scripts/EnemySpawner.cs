@@ -114,6 +114,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < ciclos; i++)
         {
             SacarEnemigo02(fristEnemy);
+            SacarEnemigo01(fristEnemy);
             
             fristEnemy -= distanceEntreEnemigos;
         }

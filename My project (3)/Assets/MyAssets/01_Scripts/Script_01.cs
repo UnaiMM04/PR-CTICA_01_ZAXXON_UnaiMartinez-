@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     bool isAlive;
+    [SerializeField] float lives = 3;
     [SerializeField] public float speed;
     [SerializeField] public float enemySpeed;
     Vector2 moveXY;
@@ -126,6 +127,39 @@ public class PlayerManager : MonoBehaviour
         transform.eulerAngles = currentRot;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        string tag = other.gameObject.tag;
+        if (tag == "Enemy")
+        {
+            lives--;
+            print("Lives: " + lives);
+            if (lives <= 0)
+            {
+                isAlive = false;
+                print("Game Over");
+            }
+        }
+
+
+
+       if (tag == "PowerUp")
+        {
+            print("Power Up Collected");
+            lives++;
+            print("Lives: " + lives);
+            if (lives >= 3)
+            {
+                lives = 3;
+            }
+        }
+
+    }
+
+
+
+
+
     void TryDash()
     {
         if (canDash && !isDashing)
@@ -133,7 +167,6 @@ public class PlayerManager : MonoBehaviour
             StartCoroutine(PerformDash());
         }
     }
-
 
     private void OnDashStart()
     {

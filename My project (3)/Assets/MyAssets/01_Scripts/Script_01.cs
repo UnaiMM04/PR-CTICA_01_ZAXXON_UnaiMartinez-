@@ -138,8 +138,11 @@ public class PlayerManager : MonoBehaviour
             {
                 isAlive = false;
                 print("Game Over");
+                Time.timeScale = 0f; // Detener el tiempo del juego
             }
         }
+
+
 
 
 
